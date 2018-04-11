@@ -18,6 +18,7 @@ class Observer {
       enumerable: true,
       configurable: true,
       get: () => {
+        // 添加观察者对象
         if (Dep.target) {
           dep.addSub(Dep.target)
         }
@@ -39,6 +40,7 @@ class Observer {
  */
 class Dep {
   constructor() {
+    // 观察者列表
     this.subs = []
   }
 
@@ -46,6 +48,9 @@ class Dep {
     this.subs.push(sub)
   }
 
+  /**
+   * 通知所有观察者列表
+   */
   notify() {
     this.subs.forEach((sub) => {
       sub.update()

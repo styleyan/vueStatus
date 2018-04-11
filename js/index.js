@@ -13,6 +13,10 @@ class Vue {
     options.mounted.call(this)
   }
 
+  /**
+   * Vue实例代理【修改、获取】data值
+   * @param {String} key data属性名
+   */
   proxyKeys(key) {
     Object.defineProperty(this, key, {
       enumerable: false,
