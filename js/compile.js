@@ -67,12 +67,11 @@ Compile.prototype = {
     })
   },
   compileText(node, exp) {
-    const self = this
     const initText = this.vm[exp]
 
     this.updateText(node, initText)
     new Watcher(this.vm, exp, (value) => {
-      self.updateText(node, value)
+      this.updateText(node, value)
     })
   },
   compileEvent(node, vm, exp, dir) {
@@ -84,12 +83,11 @@ Compile.prototype = {
     }
   },
   compileModel(node, vm, exp, dir){
-    const self = this
     let val = this.vm[exp]
 
     this.modelUpdater(node, val)
     new Watcher(this.vm, exp, (value) => {
-      self.modelUpdater(node, value)
+      this.modelUpdater(node, value)
     })
 
     node.addEventListener('input', (e) => {
@@ -99,7 +97,7 @@ Compile.prototype = {
         return
       }
 
-      self.vm[exp] = newValue
+      this.vm[exp] = newValue
       val = newValue
     })
   },

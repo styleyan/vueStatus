@@ -1,29 +1,24 @@
-function Vue(options) {
-  this.data = options.data
-  this.methods = options.methods
+class Vue {
+  constructor(options) {
+    this.data = options.data
+    this.methods = options.methods
 
-  Object.keys(this.data).forEach((key) => {
-    this.proxyKeys(key)
-  })
+    Object.keys(this.data).forEach((key) => {
+      this.proxyKeys(key)
+    })
 
-  observe(this.data)
-  new Compile(options.el, this)
-  // 所有事情处理好后执行mounted函数
-  options.mounted.call(this)
-}
+    observe(this.data)
+    new Compile(options.el, this)
+    // 所有事情执行后，触发mounted函数
+    options.mounted.call(this)
+  }
 
-Vue.prototype = {
   proxyKeys(key) {
-    const self = this
     Object.defineProperty(this, key, {
       enumerable: false,
       configurable: true,
-      get() {
-        return self.data[key]
-      },
-      set(newVal) {
-        self.data[key] = newVal
-      }
+      get: () => this.data[key],
+      set: (newVal) => this.data[key] = newVal,
     })
   }
 }
