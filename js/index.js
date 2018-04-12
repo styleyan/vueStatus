@@ -14,7 +14,7 @@ class Vue {
   }
 
   /**
-   * Vue实例代理【修改、获取】data值
+   * Vue实例代理【修改、获取】data
    * @param {String} key data属性名
    */
   proxyKeys(key) {

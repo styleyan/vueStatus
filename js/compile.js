@@ -27,7 +27,6 @@ class Compile {
       fragment.appendChild(child)
       child = el.firstChild
     }
-
     return fragment
   }
 
