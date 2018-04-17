@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>观察者模式</title>
+</head>
+<body>
+<script>
+class Publish {
+  constructor(name) {
+    this.name = name
+    this.subscribers = []
+  }
+  deliver(news) {
+    this.subscribers.forEach((item) => {
+      item(news, this)
+    })
+    return this
+  }
+}
+
+Function.prototype.subscribe = function (publish) {
+  const alreadExists = publish.subscribers.some((item) => {
+    return item === this
+  })
+  if(!alreadExists) {
+    publish.subscribers.push(this)
+  }
+  return this
+}
+
+Function.prototype.unsubscribe = function (publish){
+  if (typeof publish === 'object' && Array.isArray(publish.subscribers)) {
+    publish.subscribers = publish.subscribers.filter((item) => item !== this)
+    return this
+  }
+  throw('需要传入被观察者对象')
+}
+
+const pub1 = new Publish('报社1')
+const pub2 = new Publish('报社2')
+const pub3 = new Publish('报社3')
+
+const fn1 = function(val, p) {
+  console.log(val, p)
+}
+
+fn1.subscribe(pub1)
+</script>
+</body>
+</html>
