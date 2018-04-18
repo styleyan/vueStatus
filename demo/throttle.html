@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>函数节流/防抖</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    .throttle{
+      width: 300px;
+      height: 100px;
+      border: 2px solid red;
+      margin: 20px auto;
+      overflow: scroll;
+    }
+    .childer{
+      height: 900px;
+    }
+  </style>
+</head>
+<body>
+  <div class="throttle">
+    <div class="childer">正常</div>
+  </div>
+
+  <div class="throttle">
+    <div class="childer">节流</div>
+  </div>
+
+  <div class="throttle">
+    <div class="childer">防抖</div>
+  </div>
+
+  <script>
+    const domThrottle = document.querySelectorAll('.throttle')
+    
+    domThrottle[0].addEventListener('scroll', (e) => {
+      console.log('未节流')
+    }, false)
+    
+    /**
+     * 节流(应用场景，元素滚动事件、拖拽优化)
+     */
+    let num = 0
+    domThrottle[1].addEventListener('scroll', (e) => {
+      if (!(num % 3)) {
+        console.log('节流')
+      }
+      num++
+    }, false)
+    
+    /**
+     * 防抖(应用场景，用户注册时候的手机号码验证、邮箱验证、搜索)
+     */
+    let timer = null
+    domThrottle[2].addEventListener('scroll', (e) => {
+      clearTimeout(timer)
+
+      timer = setTimeout(() => {
+        console.log('函数防抖')
+      }, 300)
+    }, false)
+  </script>
+</body>
+</html>
