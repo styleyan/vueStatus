@@ -34,7 +34,7 @@ export default class Dep {
   }
 
   notify () {
-    // stabilize the subscriber list first
+    // stabilize the subscriber list first，避免改动影响到原来的数组
     const subs = this.subs.slice()
     for (let i = 0, l = subs.length; i < l; i++) {
       subs[i].update()
@@ -48,11 +48,13 @@ export default class Dep {
 Dep.target = null
 const targetStack = []
 
+// 放入 dep的订阅者
 export function pushTarget (_target: ?Watcher) {
   if (Dep.target) targetStack.push(Dep.target)
   Dep.target = _target
 }
 
+// 得到一个 dep的订阅中
 export function popTarget () {
   Dep.target = targetStack.pop()
 }

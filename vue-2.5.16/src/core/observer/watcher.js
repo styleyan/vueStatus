@@ -211,6 +211,7 @@ export default class Watcher {
 
   /**
    * Depend on all deps collected by this watcher.
+   * 获取所有的依赖对象
    */
   depend () {
     let i = this.deps.length
@@ -221,6 +222,7 @@ export default class Watcher {
 
   /**
    * Remove self from all dependencies' subscriber list.
+   * 删除本身所有的依赖
    */
   teardown () {
     if (this.active) {
