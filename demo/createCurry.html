@@ -13,7 +13,7 @@
       var args = args || []
       return function() {
         // 把伪数组转换成一个真正的数组
-        var _args = Array.prototype.slice.call(arguments)
+        var _args = Array.from(arguments)
 
         // 把前面的参数合并到新的返回参数中
         Array.prototype.push.apply(_args, args)
