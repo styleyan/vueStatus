@@ -1,7 +1,7 @@
 function deepCopy(obj, parent = null) {
   // 创建一个对象
-  let result = {}
-  let keys = Object.keys(obj),
+  let result = {},
+      keys = Object.keys(obj),
       temp = null,
       _parent = parent;
 

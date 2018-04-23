@@ -9,6 +9,7 @@ function getComponentName (opts: ?VNodeComponentOptions): ?string {
   return opts && (opts.Ctor.options.name || opts.tag)
 }
 
+/** 检测name是否匹配, 返回一个boolean */
 function matches (pattern: string | RegExp | Array<string>, name: string): boolean {
   if (Array.isArray(pattern)) {
     return pattern.indexOf(name) > -1
@@ -21,10 +22,13 @@ function matches (pattern: string | RegExp | Array<string>, name: string): boole
   return false
 }
 
+/** 修正catche */
 function pruneCache (keepAliveInstance: any, filter: Function) {
   const { cache, keys, _vnode } = keepAliveInstance
   for (const key in cache) {
+    /** ?Vnode 表示可以没有属性, 但出现了就必须是一个VNode类型 */
     const cachedNode: ?VNode = cache[key]
+    /** 如果Vnode不在缓存列表中，则删除它 */
     if (cachedNode) {
       const name: ?string = getComponentName(cachedNode.componentOptions)
       if (name && !filter(name)) {
@@ -34,6 +38,7 @@ function pruneCache (keepAliveInstance: any, filter: Function) {
   }
 }
 
+/** 销毁对应的组件实例 */
 function pruneCacheEntry (
   cache: VNodeCache,
   key: string,
@@ -61,11 +66,13 @@ export default {
   },
 
   created () {
+    /** 在组件创建的时候，会创建一个空白的缓存对象 */
     this.cache = Object.create(null)
     this.keys = []
   },
 
   destroyed () {
+    /** 销毁前注销组件内所有缓存组件 */
     for (const key in this.cache) {
       pruneCacheEntry(this.cache, key, this.keys)
     }
@@ -103,6 +110,8 @@ export default {
         // so cid alone is not enough (#3269)
         ? componentOptions.Ctor.cid + (componentOptions.tag ? `::${componentOptions.tag}` : '')
         : vnode.key
+        
+      /** 根据key在this.cache中查找，如果存在则说明之前已经缓存过了，直接将缓存的vnode的componentInstance（组件实例）覆盖到目前的vnode上面。否则将vnode存储在cache中。 */
       if (cache[key]) {
         vnode.componentInstance = cache[key].componentInstance
         // make current key freshest
