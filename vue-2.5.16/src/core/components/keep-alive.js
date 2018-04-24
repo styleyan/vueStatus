@@ -95,6 +95,7 @@ export default {
       // check pattern
       const name: ?string = getComponentName(componentOptions)
       const { include, exclude } = this
+      /** name不在inlcude或者在excluded中直接返回vnode（没有取缓存） */
       if (
         // not included
         (include && (!name || !matches(include, name))) ||
@@ -110,17 +111,19 @@ export default {
         // so cid alone is not enough (#3269)
         ? componentOptions.Ctor.cid + (componentOptions.tag ? `::${componentOptions.tag}` : '')
         : vnode.key
-        
-      /** 根据key在this.cache中查找，如果存在则说明之前已经缓存过了，直接将缓存的vnode的componentInstance（组件实例）覆盖到目前的vnode上面。否则将vnode存储在cache中。 */
+
+      /** 如果存在则说明之前已经缓存过了，直接将缓存的vnode的componentInstance（组件实例）覆盖到目前的vnode上面。否则将vnode存储在cache中。 */
       if (cache[key]) {
         vnode.componentInstance = cache[key].componentInstance
         // make current key freshest
+        // 更新keys数组中的key
         remove(keys, key)
         keys.push(key)
       } else {
         cache[key] = vnode
         keys.push(key)
         // prune oldest entry
+        /** 如果缓存数量大于最大数量，则先删除数组的第一个 */
         if (this.max && keys.length > parseInt(this.max)) {
           pruneCacheEntry(cache, keys[0], keys, this._vnode)
         }
