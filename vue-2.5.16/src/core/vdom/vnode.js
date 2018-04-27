@@ -1,3 +1,7 @@
+/** 
+ * 用对象模拟DOM树 
+ */
+
 /* @flow */
 
 export default class VNode {

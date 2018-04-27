@@ -1,4 +1,5 @@
 /**
+ * diff算法核心所在
  * Virtual DOM patching algorithm based on Snabbdom by
  * Simon Friis Vindum (@paldepind)
  * Licensed under the MIT License
