@@ -10,6 +10,10 @@ export class Store {
     // Auto install if it is not done yet and `window` has `Vue`.
     // To allow users to avoid auto-installation in some cases,
     // this code should be placed here. See #731
+    /**
+     * 在浏览器环境下，如果插件还未安装（!Vue即判断是否安装），则它会自动安装
+     * 它允许用户在某些情况下避免自动安装
+     */
     if (!Vue && typeof window !== 'undefined' && window.Vue) {
       install(window.Vue)
     }
@@ -471,7 +475,9 @@ function unifyObjectStyle (type, payload, options) {
   return { type, payload, options }
 }
 
+/** 爆露给外部的插件install方法，供Vue.use调用安装插件 */
 export function install (_Vue) {
+  // 避免重复安装，（Vue.use内部也会检测一次是否重复安装同一个插件）
   if (Vue && _Vue === Vue) {
     if (process.env.NODE_ENV !== 'production') {
       console.error(
@@ -480,6 +486,8 @@ export function install (_Vue) {
     }
     return
   }
+  /** 保存Vue，同时用于检测是否重复安装 */
   Vue = _Vue
+  /** 将vuexInit混淆进Vue的beforeCreate */
   applyMixin(Vue)
 }
