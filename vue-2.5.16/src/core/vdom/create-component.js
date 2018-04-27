@@ -83,8 +83,8 @@ const componentVNodeHooks = {
         // During updates, a kept-alive component's child components may
         // change, so directly walking the tree here may call activated hooks
         // on incorrect children. Instead we push them into a queue which will
-        // be processed after the whole patch process ended.
-        queueActivatedComponent(componentInstance)
+        // 
+        queueActivatedComponent(componentInbe processed after the whole patch process ended.stance)
       } else {
         activateChildComponent(componentInstance, true /* direct */)
       }
@@ -125,6 +125,7 @@ export function createComponent (
 
   // if at this stage it's not a constructor or an async component factory,
   // reject.
+  /* 如果在该阶段Ctor依然不是一个构造函数或者是一个异步组件工厂则直接返回 */
   if (typeof Ctor !== 'function') {
     if (process.env.NODE_ENV !== 'production') {
       warn(`Invalid Component definition: ${String(Ctor)}`, context)
@@ -133,6 +134,7 @@ export function createComponent (
   }
 
   // async component
+  /** 异步组件处理 */
   let asyncFactory
   if (isUndef(Ctor.cid)) {
     asyncFactory = Ctor

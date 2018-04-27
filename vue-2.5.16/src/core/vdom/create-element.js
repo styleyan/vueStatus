@@ -41,9 +41,11 @@ export function createElement (
   if (isTrue(alwaysNormalize)) {
     normalizationType = ALWAYS_NORMALIZE
   }
+  // 创建虚拟节点
   return _createElement(context, tag, data, children, normalizationType)
 }
 
+/*创建虚拟节点，返回一个后数组形式的*/
 export function _createElement (
   context: Component,
   tag?: string | Class<Component> | Function | Object,
@@ -51,12 +53,12 @@ export function _createElement (
   children?: any,
   normalizationType?: number
 ): VNode | Array<VNode> {
+  /*
+    如果传递data参数且data的__ob__已经定义（代表已经被observed，上面绑定了Oberver对象），
+    https://cn.vuejs.org/v2/guide/render-function.html#约束
+    那么创建一个空节点
+  */
   if (isDef(data) && isDef((data: any).__ob__)) {
-    process.env.NODE_ENV !== 'production' && warn(
-      `Avoid using observed data object as vnode data: ${JSON.stringify(data)}\n` +
-      'Always create fresh vnode data objects in each render!',
-      context
-    )
     return createEmptyVNode()
   }
   // object syntax in v-bind
@@ -80,6 +82,7 @@ export function _createElement (
     }
   }
   // support single function children as default scoped slot
+  // 默认作用域插槽
   if (Array.isArray(children) &&
     typeof children[0] === 'function'
   ) {
@@ -95,13 +98,17 @@ export function _createElement (
   let vnode, ns
   if (typeof tag === 'string') {
     let Ctor
+    // 获取tag的名字空间
     ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag)
+    // 判断是否是保留的标签
     if (config.isReservedTag(tag)) {
       // platform built-in elements
+      // 如果是保留标签则创建一个相对应的节点
       vnode = new VNode(
         config.parsePlatformTagName(tag), data, children,
         undefined, undefined, context
       )
+    // 从vm实例的option的components中寻找该tag, 存在则就是一个组件，创建相应节点，Ctor为组件的构造类 */
     } else if (isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
       // component
       vnode = createComponent(Ctor, data, context, children, tag)
@@ -109,6 +116,7 @@ export function _createElement (
       // unknown or unlisted namespaced elements
       // check at runtime because it may get assigned a namespace when its
       // parent normalizes children
+      /*未知的元素，在运行时检查，因为父组件可能在序列化子组件的时候分配一个名字空间*/
       vnode = new VNode(
         tag, data, children,
         undefined, undefined, context
@@ -116,15 +124,18 @@ export function _createElement (
     }
   } else {
     // direct component options / constructor
+     /*tag不是字符串的时候则是组件的构造类*/
     vnode = createComponent(tag, data, context, children)
   }
   if (Array.isArray(vnode)) {
     return vnode
   } else if (isDef(vnode)) {
+    /*如果有名字空间，则递归所有子节点应用该名字空间*/
     if (isDef(ns)) applyNS(vnode, ns)
     if (isDef(data)) registerDeepBindings(data)
     return vnode
   } else {
+    /*如果vnode没有成功创建则创建空节点*/
     return createEmptyVNode()
   }
 }
