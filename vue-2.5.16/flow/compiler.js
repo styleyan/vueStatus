@@ -74,6 +74,7 @@ declare type ASTDirective = {
 
 declare type ASTNode = ASTElement | ASTText | ASTExpression;
 
+/** dom 元素节点 */
 declare type ASTElement = {
   type: 1;
   tag: string;
@@ -152,6 +153,7 @@ declare type ASTElement = {
   appendAsTree?: boolean;
 };
 
+/** 特性节点 */
 declare type ASTExpression = {
   type: 2;
   expression: string;
@@ -162,6 +164,7 @@ declare type ASTExpression = {
   ssrOptimizability?: number;
 };
 
+/** 文本节点 */
 declare type ASTText = {
   type: 3;
   text: string;
