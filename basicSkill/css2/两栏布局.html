@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .warp-layout{
+      overflow: auto;
+      margin-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 左边float，右边触发BFC -->
+  <style>
+    .aside{
+      width: 100px;
+      height: 150px;
+      float: left;
+      background: #f66;
+      margin-right: 20px;
+    }
+    .main{
+      height: 200px;
+      background: #fcc;
+      overflow: auto;
+    }
+  </style>
+  <div class="warp-layout">
+    <div class="aside"></div>
+    <div class="main">左边float，右边元素触发BFC</div>
+  </div>
+
+
+  <!-- 左边绝对定位，右边margin-left -->
+  <style>
+    .warp-layout2{
+      position: relative;
+    }
+    .aside-1{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100px;
+      height: 100%;
+    }
+    .main-1{
+      margin-left: 110px;
+    }
+  </style>
+  <div class="warp-layout warp-layout2">
+    <div class="aside-1"></div>
+    <div class="main-1">测试</div>
+  </div>
+  <a href="https://juejin.im/post/5af8e6aef265da0b9265b04c">学习面试</a>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    .left1, .left2{
+      width: 200px;
+      height: 300px;
+      float: left;
+    }
+    .left1{
+      background: red;
+      margin-right: 10px;
+    }
+    .left2{
+      background: blue;
+    }
+    .clearfix::after{
+      display: table;
+      content: '';
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+  <!-- 通过after伪元素，还可以通过给父级元素增加overflow:auto -->
+  <div class="warp">
+    <div class="left1"></div>
+    <div class="left2"></div>
+  </div>
+  未清除浮动后。
+</body>
+</html>

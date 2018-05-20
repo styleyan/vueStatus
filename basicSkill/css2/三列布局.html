@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style lang="">
+  html *{
+    padding: 0;
+    margin: 0;
+  }
+  .layout{
+    margin-top:15px;
+  }
+  .layout article div{
+    height: 100px;
+  }
+</style>
+</head>
+<body>
+  <section class="layout float" >
+    <style>
+      .layout.float .left{
+        float:left;
+        width:300px;
+        background:red;
+      }
+      .layout.float .right{
+        float:right;
+        width:300px;
+        background:blue;
+      }
+      .layout.float .center{
+        background:yellow;
+      }
+    </style>
+    <article class="box">
+      <div class="left">1</div>
+      <div class="right">1</div>
+      <div class="center">
+        1、浮动方案:center 必须放在最后，如果放在中间，因为left脱离文档流，center占满整个空间，right就会掉下去
+      </div>
+    </article>
+  </section>
+  <section class="layout absolute" >
+    <style>
+      .layout.absolute .box>div{
+        position: absolute;
+      }
+      .layout.absolute .left{
+        left:0;
+        width:300px;
+        background:red;
+      }
+      .layout.absolute .center{
+        left: 300px;
+        right: 300px;
+        background:yellow;
+      }
+      .layout.absolute .right{
+        right:0;
+        width:300px;
+        background:blue;
+      }
+    </style>
+    <article class="box">
+      <div class="left">2</div>
+      <div class="center">
+        2、绝对定位方案:三栏都绝对定位，center要left300px，right300px
+      </div>
+      <div class="right">2</div>
+    </article>
+  </section>
+  <section class="layout flexbox" >
+    <style>
+      .layout.flexbox{
+        margin-top:150px;
+      }
+      .layout.flexbox .box{
+        display: flex;
+      }
+      .layout.flexbox .left{
+        /* flex: 0 0 300px;  */
+         width: 300px;  
+        background:red;
+      }
+      .layout.flexbox .center{
+        flex: 1;
+        background:yellow;
+      }
+      .layout.flexbox .right{
+         /* flex: 0 0 300px;  */
+         width: 300px; 
+        background:blue;
+      }
+    </style>
+    <article class="box">
+      <div class="left">3</div>
+      <div class="center">
+        3、flexbox方案:left 和 right都是width 300px,center 设置flex 为1<br>
+        注意：flex: 0 0 300px; 和 width 300px,是有不一样效果的，前者是无论如何缩小box都不会改变left 和 right
+      </div>
+      <div class="right">3</div>
+    </article>
+  </section>
+  <section class="layout table" >
+    <style>
+      .layout.table .box{
+        display: table;
+        width: 100%;
+      }
+      .layout.table .left{
+        display: table-cell;
+        width:300px;
+        background:red;
+      }
+      .layout.table .center{
+        display: table-cell;
+        background:yellow;
+      }
+      .layout.table .right{
+        display: table-cell;
+        width:300px;
+        background:blue;
+      }
+    </style>
+    <article class="box">
+      <div class="left">4</div>
+      <div class="center">
+        4、table方案:box 设置display: table; 三个子元素都 display: table-cell;
+      </div>
+      <div class="right">4</div>
+    </article>
+  </section>
+
+  <section class="layout grid" >
+    <style>
+      .layout.grid .box{
+        display: grid;
+        width: 100%;
+        grid-template-rows: 100px;
+        grid-template-columns: 300px auto 300px;
+      }
+      .layout.grid .left{
+        background: red;
+      }
+      .layout.grid .right{
+        background: blue;
+      }
+      .layout.grid .center{
+        background: yellow;
+      }
+    </style>
+    <article class="box">
+      <div class="left">5</div>
+      <div class="center">
+        5、网格布局方案:grid-template-rows 和 grid-template-columns
+      </div>
+      <div class="right">5</div>
+    </article>
+  </section>
+  
+</body>
+</html>
