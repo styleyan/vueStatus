@@ -5,8 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    .bfc{
+      overflow: hidden;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- margin-bottom和padding-bottom -->
+  <style>
+    .warp-test1{
+      overflow: hidden;
+    }
+    .warp-test1 > div{
+      float: left;
+      width: 200px;
+      margin-bottom: -9999px;
+      padding-bottom: 9999px;
+    }
+    .warp-test1-left{
+      background: red;
+    }
+    .warp-test1-right{
+      background: blue;
+    }
+  </style>
+  <div class="warp-test1">
+    <div class="warp-test1-left">&nbsp;</div>
+    <div class="warp-test1-right">sdfsdfs<br><br><br><br><br><br></div>
+  </div>
+
+
+  <br><br><br>
   <a href="https://blog.csdn.net/qq_35639964/article/details/56839103">常用两栏等高布局三种方法</a>
 </body>
 </html>

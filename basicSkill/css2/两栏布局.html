@@ -34,7 +34,7 @@
   </div>
 
 
-  <!-- 左边绝对定位，右边margin-left -->
+  <!-- 左边绝对定位，右边margin-left-->
   <style>
     .warp-layout2{
       position: relative;
@@ -45,15 +45,85 @@
       top: 0;
       width: 100px;
       height: 100%;
+      background: greenyellow;
     }
     .main-1{
       margin-left: 110px;
+      background: red;
     }
   </style>
   <div class="warp-layout warp-layout2">
     <div class="aside-1"></div>
-    <div class="main-1">测试</div>
+    <div class="main-1">左边绝对定位，右边margin-left（缺点是同时需要修改left的宽度、和margin-left值）</div>
   </div>
-  <a href="https://juejin.im/post/5af8e6aef265da0b9265b04c">学习面试</a>
+
+
+  <!-- flex -->
+  <style>
+    .warp-flex{
+      display: flex;
+    }
+    .flex-aside{
+      width: 100px;
+      margin-right: 10px;
+      background: #f66;
+    }
+    .flex-main{
+      flex: 1;
+      background: #fcc;
+    }
+  </style>
+  <div class="warp-flex warp-layout">
+    <div class="flex-aside"></div>
+    <div class="flex-main">display: flex; flex: 1; width:100px（适用于高级浏览器）</div>
+  </div>
+
+  <!-- table -->
+  <style>
+    .warp-table{
+      display: table;
+      width: 100%;
+    }
+    .table-aside{
+      display: table-cell;
+      width: 100px;
+      background: red;
+    }
+    .table-main{
+      display: table-cell;
+      background: blue;
+    }
+  </style>
+  <div class="warp-table warp-layout">
+    <div class="table-aside"></div>
+    <div class="table-main">父级设置display:table，子元素设计成table-cell，缺点是无法设置margin需要添加一个层级</div>
+  </div>
+
+
+  <!-- grid -->
+  <style>
+    .warp-grid{
+      display: grid;
+      grid-template-columns: 100px auto;
+      /* 行高的高度*/
+      grid-template-rows: 50px;
+    }
+    .grid-aside{
+      background:#fcc;
+    }
+    .grid-main{
+      background:#f66;
+    }
+    .grid-right{
+      background: blue;
+    }
+  </style>
+  <div class="warp-grid">
+    <div class="grid-aside"></div>
+    <div class="grid-main">grid</div>
+  </div>
+
+  <a href="http://www.css88.com/archives/8506" target="_blank">5分钟学会 CSS Grid 布局</a>
+  <a href="https://juejin.im/post/5af8e6aef265da0b9265b04c">学习</a>
 </body>
 </html>
