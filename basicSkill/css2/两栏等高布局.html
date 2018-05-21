@@ -16,17 +16,18 @@
   </style>
 </head>
 <body>
-
+  <a href="https://blog.csdn.net/qq_35639964/article/details/56839103">常用两栏等高布局三种方法</a>
+  <br><br>
   <!-- margin-bottom和padding-bottom -->
   <style>
     .warp-test1{
       overflow: hidden;
     }
     .warp-test1 > div{
+      padding-bottom: 9999px;
+      margin-bottom: -9999px;
       float: left;
       width: 200px;
-      margin-bottom: -9999px;
-      padding-bottom: 9999px;
     }
     .warp-test1-left{
       background: red;
@@ -34,14 +35,70 @@
     .warp-test1-right{
       background: blue;
     }
+    .warp-test1-right a{
+      color: rgb(255, 255, 255)
+    }
   </style>
   <div class="warp-test1">
-    <div class="warp-test1-left">&nbsp;</div>
-    <div class="warp-test1-right">sdfsdfs<br><br><br><br><br><br></div>
+    <div class="warp-test1-left">margin + padding + overflow适用兼容ie</div>
+    <div class="warp-test1-right">
+      <a href="https://segmentfault.com/a/1190000000625584?_ea=390493">点击查看等高布局详解</a>
+      <br>
+      <br>
+      <br>
+      <br>
+      
+    </div>
+  </div><br><br>
+
+  <style>
+    .warp-table{
+      display: table;
+      width: 400px;
+    }
+    .warp-table p{
+      display: table-cell;
+    }
+    .warp-table :first-child{
+      width: 200px;
+      background: red
+    }
+    .warp-table :last-child{
+      background: green;
+    }
+  </style>
+  <div class="warp-table">
+    <p>如果规定了 !DOCTYPE，
+      则 Internet Explorer 8 （以及更高版本）
+      支持属性值"table-cell"、"table-row"。</p>
+    <p>右边</p>
   </div>
 
 
-  <br><br><br>
-  <a href="https://blog.csdn.net/qq_35639964/article/details/56839103">常用两栏等高布局三种方法</a>
+  <style>
+    .warp-flex{
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .warp-flex-l{
+      width: 300px;
+      /* 需要填写宽度，不然是固定不了的 */
+      flex: 0 0 300px;
+      background: red;
+    }
+    .warp-flex-c{
+      flex: 1;
+      background: blue;
+    }
+    .warp-flex-r{
+      flex: 0 0 300px;
+      background: green;
+    }
+  </style>
+  <div class="warp-flex">
+    <p class="warp-flex-l">flex</p>
+    <p class="warp-flex-c">flex右边</p>
+    <p class="warp-flex-r">flex右边</p>
+  </div>
 </body>
 </html>
