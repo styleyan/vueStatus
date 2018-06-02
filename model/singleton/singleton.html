@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button id="loginBtn">测试弹框</button>
+  <script>
+    const createLoginLayer = function() {
+      const div = document.createElement('div')
+      div.innerHTML= '登录浮框'
+      div.style.display = 'none'
+      document.body.appendChild(div)
+      return div
+    }
+
+    const getSingle = function(fn) {
+      let result
+      return function() {
+        if (!result) {
+          result = fn.apply(this, arguments)
+        }
+        return result
+      }
+    }
+
+    const createSingleLoginLayer = getSingle(createLoginLayer)
+    
+    document.getElementById('loginBtn').addEventListener('click', function() {
+      const result = createSingleLoginLayer()
+      console.log(result)
+    }, false)
+  </script>
+</body>
+</html>

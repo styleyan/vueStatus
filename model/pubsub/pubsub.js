@@ -1,14 +1,3 @@
-### 发布订阅模式
-
-事件发布/订阅模式 (PubSub) 在异步编程中帮助我们完成更松的解耦，甚至在 MVC、MVVC 的架构中以及设计模式中也少不了发布-订阅模式的参与。
-
-优点：在异步编程中实现更深的解耦
-
-缺点：如果过多的使用发布订阅模式，会增加维护的难度
-
-### 实现一个发布订阅模式
-
-```js
 class Event {
   constructor(){
     this.obj = {}
@@ -50,13 +39,15 @@ class Event {
 
 const ev = new Event()
 
-ev.on('yxf', function() {     // 添加一个订阅
+ev.on('yxf', function() {
   console.log(...arguments)
 })
 
-ev.emit('yxf', '我是参数1', '我是参数2')  // 发布
+ev.emit('yxf', '我是参数1', '我是参数2')
 
-ev.on('yxf', function() {    // 后添加的订阅也能执行
+ev.on('yxf', function() {
   console.log(...arguments)
 })
-```
+
+
+
