@@ -172,32 +172,11 @@ export function createPatchFunction (backend) {
         : nodeOps.createElement(tag, vnode)
       setScope(vnode)
 
-      /* istanbul ignore if */
-      if (__WEEX__) {
-        // in Weex, the default insertion order is parent-first.
-        // List items can be optimized to use children-first insertion
-        // with append="tree".
-        const appendAsTree = isDef(data) && isTrue(data.appendAsTree)
-        if (!appendAsTree) {
-          if (isDef(data)) {
-            invokeCreateHooks(vnode, insertedVnodeQueue)
-          }
-          insert(parentElm, vnode.elm, refElm)
-        }
-        createChildren(vnode, children, insertedVnodeQueue)
-        if (appendAsTree) {
-          if (isDef(data)) {
-            invokeCreateHooks(vnode, insertedVnodeQueue)
-          }
-          insert(parentElm, vnode.elm, refElm)
-        }
-      } else {
-        createChildren(vnode, children, insertedVnodeQueue)
-        if (isDef(data)) {
-          invokeCreateHooks(vnode, insertedVnodeQueue)
-        }
-        insert(parentElm, vnode.elm, refElm)
+      createChildren(vnode, children, insertedVnodeQueue)
+      if (isDef(data)) {
+        invokeCreateHooks(vnode, insertedVnodeQueue)
       }
+      insert(parentElm, vnode.elm, refElm)
 
       if (process.env.NODE_ENV !== 'production' && data && data.pre) {
         creatingElmInVPre--
@@ -404,6 +383,7 @@ export function createPatchFunction (backend) {
     }
   }
 
+  // 图形参考：https://sfault-image.b0.upaiyun.com/333/289/3332891351-58d13c20889f8_articlex
   function updateChildren (parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
     let oldStartIdx = 0
     let newStartIdx = 0
@@ -506,6 +486,7 @@ export function createPatchFunction (backend) {
       return
     }
 
+    // 让vnode.el引用到现在的真实dom，当el修改时，vnode.el会同步变化
     const elm = vnode.elm = oldVnode.elm
 
     if (isTrue(oldVnode.isAsyncPlaceholder)) {
