@@ -1,6 +1,15 @@
-# inquirer配置
+# 脚手架搭建
 
-## 语法结构
+1. inquirer(交互式命令)
+1. download-git-repo (从git远程仓库下载文件)
+1. commander(能够更好地组织和处理命令行的输入)
+1. chalk(美化)
+1. ora(漂亮的 loding )
+1. rimraf(删除文件或文件夹)
+1. handlebars(语义模板库)
+1. metalsmith(静态页面构建，配合handlebars使用)
+
+## inquirer配置和语法结构
 
 ```javascript
 const inquirer = rerquire('inquirer)
@@ -18,7 +27,7 @@ inquirer.prompt(promptList).then((answers) => {
 })
 ```
 
-### 可填写参数
+#### 可填写参数
 
 - type: 选择类型
   - input(输入内容)
@@ -40,6 +49,7 @@ inquirer.prompt(promptList).then((answers) => {
 - when: function (获取前面输入的值，判断是否进行当前命令行交互(true:可以, false: 不可以))
 - pageSize: 列表显示数量，多出为滚动
 - transformer:
+
 
 #### 参考文章
 
