@@ -30,7 +30,7 @@ inquirer.prompt(promptList).then((answers) => {
 #### 可填写参数
 
 - type: 选择类型
-  - input(输入内容)
+  - input(输入内容)
   - confirm(确认)
   - list(上下键单选)
   - rawlist(选择输入)
@@ -48,7 +48,7 @@ inquirer.prompt(promptList).then((answers) => {
 - filter: function (对输入的值可进行二次加工)
 - when: function (获取前面输入的值，判断是否进行当前命令行交互(true:可以, false: 不可以))
 - pageSize: 列表显示数量，多出为滚动
-- transformer:
+- transformer: function ?
 
 
 #### 参考文章

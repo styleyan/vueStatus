@@ -31,3 +31,7 @@ function* iterTree(tree) {
 console.log([...flat(arrs)])
 console.log(Array.from(flat(arrs)))
 
+/**
+ * 其他方法：https://github.com/JesseZhao1990/algorithm/issues/9
+ */
+
