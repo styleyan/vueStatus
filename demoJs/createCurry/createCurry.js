@@ -1,55 +1,22 @@
-/**
- * 颗粒化函数
- */
-function createCurry(func, args) {
-  const len = func.length
-  const _args = args || []
+function createCurry(fn, params) {
+  const len = fn.length
+  const _params = params || []
 
-  return function() {
-    const _ag = Array.prototype.slice.call(arguments)
-    Array.prototype.push.apply(_ag, _args)
+  return function(...args) {
+    Array.prototype.push.apply(_params, args)
 
-    if (_ag.length < len) {
-      return createCurry.call(this, func, _ag)
+    if (_params.length < len) {
+      return createCurry.call(this, fn, _params)
     }
 
-    func.apply(this, _ag)
+    fn.apply(this, _params)
   }
 }
 
-const abc = createCurry(function(a, b, c) {
-  console.log(a + b + c)
+const fns = createCurry(function(a, b, cb) {
+  cb(a + b)
 })
 
-abc(33)(22)(11)
-
-/** ==========================函数防抖======================== */
-function throttle(fun, awit) {
-  let timer = null
-  let flag = true
-
-  return function() {
-    const arg = arguments
-
-    if (flag) {
-      flag = false
-      fun.apply(this, arg)
-      return
-    }
-
-    if (timer) return
-    timer = setTimeout(() => {
-      clearTimeout(timer)
-      timer = null
-      fun.apply(this, arg)
-    }, awit)
-  }
-}
-
-const abs = throttle(function(param1) {
-  console.log(`参数：${param1}`)
-}, 5000)
-
-abs(222)
-abs(333)
-abs(555)
+fns(2)(3)(function(result){
+  console.log(result)
+})
