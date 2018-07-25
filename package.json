@@ -1,0 +1,25 @@
+{
+  "name": "vuestatus",
+  "version": "1.0.0",
+  "description": "vue学习仓库",
+  "main": "index.js",
+  "dependencies": {
+    "thunkify": "^2.1.2",
+    "vue": "^2.5.16",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/styleyan/vueStatus.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/styleyan/vueStatus/issues"
+  },
+  "homepage": "https://github.com/styleyan/vueStatus#readme"
+}
