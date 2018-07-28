@@ -13,7 +13,7 @@
   </style>
 </head>
 <body>
-  <!-- 使用table cell -->
+  <!-- 使用table cell，会影响到里面其他的元素-->
   <style>
     .block{
       width: 400px;
@@ -34,7 +34,7 @@
     <div class="inner-table-cell">table-cell垂直居中</div>
   </div>
 
-  
+
 
   <!-- 伪元素after居中 -->
   <style>
@@ -74,7 +74,7 @@
     <div class="inner-transform">绝对定位 + transform: translate(-50%, -50%)</div>
   </div>
 
-  
+
 
   <!-- flex -->
   <style>
@@ -90,5 +90,10 @@
     div
     <img src="https://img.xiu8.com/img/avatar/m/1_1/28/b4c/60e130f996e4dd2b66f871d20b3b4c28.png" width="100" height="100" alt="">
   </div>
+
+  <!-- position -->
+  <div style="width: 400px;height: 400px;background: blue;position: relative;">
+      <div style="width: 200px;height: 200px;background:red;position: absolute;left: 0;top: 0;right: 0;bottom: 0;margin:auto">sdfsdf</div>
+    </div>
 </body>
 </html>
