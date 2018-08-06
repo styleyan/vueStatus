@@ -132,6 +132,7 @@ strats.data = function (
 /**
  * Hooks and props are merged as arrays.
  */
+// 生命钩子合并： http://hcysun.me/vue-design/art/5vue-merge.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90%E9%80%89%E9%A1%B9%E7%9A%84%E5%90%88%E5%B9%B6%E7%AD%96%E7%95%A5
 function mergeHook (
   parentVal: ?Array<Function>,
   childVal: ?Function | ?Array<Function>
@@ -387,6 +388,8 @@ export function mergeOptions (
       parent = mergeOptions(parent, child.mixins[i], vm)
     }
   }
+
+  // vue 选项的合并 http://hcysun.me/vue-design/art/5vue-merge.html#vue-%E9%80%89%E9%A1%B9%E7%9A%84%E5%90%88%E5%B9%B6
   const options = {}
   let key
   for (key in parent) {

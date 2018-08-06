@@ -1,3 +1,8 @@
+/**
+ * 推荐文章地址:
+ * http://hcysun.me/vue-design/appendix/core-util.html#perf-js-%E6%96%87%E4%BB%B6%E4%BB%A3%E7%A0%81%E8%AF%B4%E6%98%8E
+ */
+
 import { inBrowser } from './env'
 
 export let mark

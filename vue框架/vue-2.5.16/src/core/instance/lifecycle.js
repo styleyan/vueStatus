@@ -21,19 +21,26 @@ import {
 export let activeInstance: any = null
 export let isUpdatingChildComponent: boolean = false
 
+// “将当前实例添加到父实例的 $children 属性里，并设置当前实例的 $parent 指向父实例”。
 export function initLifecycle (vm: Component) {
+  // 定义 options，它是 vm.$options 的引用，后面的代码使用的都是 options 常量
   const options = vm.$options
 
   // locate first non-abstract parent
   let parent = options.parent
+  // 如果当前实例有父组件，且当前实例不是抽象的
   if (parent && !options.abstract) {
+    // // 使用 while 循环查找第一个非抽象的父组件
     while (parent.$options.abstract && parent.$parent) {
       parent = parent.$parent
     }
+    // 经过上面的 while 循环后，parent 应该是一个非抽象的组件，
+    // 将它作为当前实例的父级，所以将当前实例 vm 添加到父级的 $children 属性里
     parent.$children.push(vm)
   }
-
+  // 设置当前实例的 $parent 属性，指向父级
   vm.$parent = parent
+  // 设置 $root 属性，有父级就是用父级的 $root，否则 $root 指向自身
   vm.$root = parent ? parent.$root : vm
 
   vm.$children = []

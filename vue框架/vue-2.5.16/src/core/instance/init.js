@@ -19,7 +19,7 @@ export function initMixin (Vue: Class<Component>) {
     vm._uid = uid++
 
     let startTag, endTag
-    /* istanbul ignore if */
+    /* mark 打标记，计算组件的性能 */
     if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
       startTag = `vue-perf-start:${vm._uid}`
       endTag = `vue-perf-end:${vm._uid}`
@@ -35,12 +35,15 @@ export function initMixin (Vue: Class<Component>) {
       // internal component options needs special treatment.
       initInternalComponent(vm, options)
     } else {
+      // mergeOpTions 合并参数和规范化 prop、inject、directives、mixins 详解：http://hcysun.me/vue-design/art/4vue-normalize.html#%E6%A3%80%E6%9F%A5%E7%BB%84%E4%BB%B6%E5%90%8D%E7%A7%B0%E6%98%AF%E5%90%A6%E7%AC%A6%E5%90%88%E8%A6%81%E6%B1%82
       vm.$options = mergeOptions(
+        // resolveConstructorOptions 讲解：http://hcysun.me/vue-design/art/4vue-normalize.html
         resolveConstructorOptions(vm.constructor),
         options || {},
         vm
       )
     }
+    // 渲染函数的作用域代理: http://hcysun.me/vue-design/art/6vue-init-start.html
     /* istanbul ignore else */
     if (process.env.NODE_ENV !== 'production') {
       initProxy(vm)
@@ -48,12 +51,21 @@ export function initMixin (Vue: Class<Component>) {
       vm._renderProxy = vm
     }
     // expose real self
+    // 在 Vue 实例对象 vm 上添加了 _self 属性，指向真实的实例本身
     vm._self = vm
     initLifecycle(vm)
     initEvents(vm)
     initRender(vm)
     callHook(vm, 'beforeCreate')
     initInjections(vm) // resolve injections before data/props
+    // http://hcysun.me/vue-design/art/7vue-reactive.html#%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1%E4%BB%A3%E7%90%86%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE-data
+    /* 根据 vm.$options.data 选项获取真正想要的数据（注意：此时 vm.$options.data 是函数）
+      校验得到的数据是否是一个纯对象
+      检查数据对象 data 上的键是否与 props 对象上的键冲突
+      检查 methods 对象上的键是否与 data 对象上的键冲突
+      在 Vue 实例对象上添加代理访问数据对象的同名属性
+      最后调用 observe 函数开启响应式之路
+    */
     initState(vm)
     initProvide(vm) // resolve provide after data/props
     callHook(vm, 'created')
@@ -62,6 +74,7 @@ export function initMixin (Vue: Class<Component>) {
     if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
       vm._name = formatComponentName(vm, false)
       mark(endTag)
+      // measure 方法，根据两个标记来计算这两个标记间代码的性能数据
       measure(`vue ${vm._name} init`, startTag, endTag)
     }
 
@@ -94,6 +107,7 @@ export function initInternalComponent (vm: Component, options: InternalComponent
 }
 
 export function resolveConstructorOptions (Ctor: Class<Component>) {
+  // Ctor.options 参数就是 Vue.options
   let options = Ctor.options
   if (Ctor.super) {
     const superOptions = resolveConstructorOptions(Ctor.super)
@@ -119,6 +133,7 @@ export function resolveConstructorOptions (Ctor: Class<Component>) {
 
 function resolveModifiedOptions (Ctor: Class<Component>): ?Object {
   let modified
+  // Ctor.options 就是 Vue.options
   const latest = Ctor.options
   const extended = Ctor.extendOptions
   const sealed = Ctor.sealedOptions

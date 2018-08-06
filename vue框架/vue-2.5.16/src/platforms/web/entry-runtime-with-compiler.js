@@ -4,17 +4,22 @@ import config from 'core/config'
 import { warn, cached } from 'core/util/index'
 import { mark, measure } from 'core/util/perf'
 
+// 导入 运行时 的 Vue
 import Vue from './runtime/index'
 import { query } from './util/index'
+// 从 ./compiler/index.js 文件导入 compileToFunctions
 import { compileToFunctions } from './compiler/index'
 import { shouldDecodeNewlines, shouldDecodeNewlinesForHref } from './util/compat'
 
+// 根据 id 获取元素的 innerHTML
 const idToTemplate = cached(id => {
   const el = query(id)
   return el && el.innerHTML
 })
 
+// 使用 mount 变量缓存 Vue.prototype.$mount 方法
 const mount = Vue.prototype.$mount
+// 重写 Vue.prototype.$mount 方法
 Vue.prototype.$mount = function (
   el?: string | Element,
   hydrating?: boolean
@@ -95,6 +100,7 @@ function getOuterHTML (el: Element): string {
   }
 }
 
+// 在 Vue 上添加一个全局API `Vue.compile` 其值为上面导入进来的 compileToFunctions
 Vue.compile = compileToFunctions
 
 export default Vue
