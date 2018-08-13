@@ -24,3 +24,5 @@ class Routers {
     this.routes[this.currentUrl]()
   }
 }
+
+console.log(new Routers())

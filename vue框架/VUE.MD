@@ -44,6 +44,13 @@ initState 其实是很多选项初始化的汇总，包括：props、methods、d
 - Vue.set(别名: this.$set)
 - Vue.delete(别名: this.$delete)
 
+## 抽象组件(高阶组件)
+
+- transform
+- keep-live
+- slot
+- template
+
 ## 其他的
 
 - [shared/util.js](http://hcysun.me/vue-design/appendix/shared-util.html)
