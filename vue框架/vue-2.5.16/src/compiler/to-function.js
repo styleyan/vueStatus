@@ -55,7 +55,7 @@ export function createCompileToFunctionFn (compile: Function): Function {
       return cache[key]
     }
 
-    // compile
+    // compile ({shouldDecodeNewlines, shouldDecodeNewlinesForHref,delimiters,comments,warn  // 被 delete})
     const compiled = compile(template, options)
 
     // check compilation errors/tips
@@ -75,7 +75,9 @@ export function createCompileToFunctionFn (compile: Function): Function {
     // turn code into functions
     const res = {}
     const fnGenErrors = []
+    // compiled.render  字符串
     res.render = createFunction(compiled.render, fnGenErrors)
+    // 主要作用是渲染优化
     res.staticRenderFns = compiled.staticRenderFns.map(code => {
       return createFunction(code, fnGenErrors)
     })
@@ -94,6 +96,7 @@ export function createCompileToFunctionFn (compile: Function): Function {
       }
     }
 
+    // 代码在返回编译结果的同时，将结果缓存，这样下一次发现如果 cache 中存在相同的 key 则不需要再次编译，直接使用缓存的结果就可以了
     return (cache[key] = res)
   }
 }

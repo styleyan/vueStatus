@@ -21,6 +21,7 @@ export const createCompiler = createCompilerCreator(function baseCompile (
   }
   // 主要功能就是根据 AST 结构生成 render function 的字符串
   const code = generate(ast, options)
+  // 传递给 creater-compile.js，compiled
   return {
     ast,
     render: code.render,
