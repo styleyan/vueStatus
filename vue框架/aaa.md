@@ -82,8 +82,9 @@ res.staticRenderFns = compiled.staticRenderFns.map(code => {
 ## render()
 
 ## vnode
-VNode 是由 render function 转化而来
-我们知道，render function 会被转化成 VNode 节点。Virtual DOM 其实就是一棵以 JavaScript 对象（VNode 节点）作为基础的树，用对象属性来描述节点，实际上它只是一层对真实 DOM 的抽象。最终可以通过一系列操作使这棵树映射到真实环境上。由于 Virtual DOM 是以 JavaScript 对象为基础而不依赖真实平台环境，所以使它具有了跨平台的能力，比如说浏览器平台、Weex、Node 等。...
+VNode 节点是由 render function 转化而来，它其实只是对真实 DOM 的抽象，以 Javascript 对象作为基础的树，用对象属性来描述节点。最终可以通过一系列操作使这棵树映射到真实环境上，由于 Virtual DOM 是以 JavaScript 对象为基础而不依赖真实平台环境，所以使它具有了跨平台的能力，比如说浏览器平台、Weex、Node 等。
+
+VNode 就是一个 JavaScript 对象，用 JavaScript 对象的属性来描述当前节点的一些状态，用 VNode 节点的形式来模拟一棵 Virtual DOM 树
 
 ## update()
 

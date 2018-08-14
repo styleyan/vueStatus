@@ -30,6 +30,7 @@ initState 其实是很多选项初始化的汇总，包括：props、methods、d
 
 ## render.js
 
+- 创建 vnode
 - $nextTick
 - _render
 
